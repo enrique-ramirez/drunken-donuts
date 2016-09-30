@@ -12,10 +12,6 @@ jQuery(document).ready(function() {
         }
     });
 
-    // Move to bottom scroll
-    var messages = document.getElementById('chat_body');
-    messages.scrollTop = messages.scrollHeight;
-
     if (window.addEventListener) {
         window.addEventListener('message', initData, false);
     } else {
@@ -45,6 +41,11 @@ jQuery(document).ready(function() {
         event.preventDefault();
     });
 
+    function scrollToBottom() {
+        var messages = document.getElementById('chat_body');
+        messages.scrollTop = messages.scrollHeight;
+    }
+
     function selfMessage(message) {
         var html = '';
         var $messages = jQuery('#chat_body');
@@ -61,6 +62,7 @@ jQuery(document).ready(function() {
         html+= '</div>';
 
         $messages.append(html);
+        scrollToBottom();
     }
 
     function otherMessage(message) {
@@ -80,6 +82,7 @@ jQuery(document).ready(function() {
         html+= '</div>';
 
         $messages.append(html);
+        scrollToBottom();
     }
 
     initData({data: JSON.parse('{"user":{"id":"57ed819350af16c1c6000044","email":"enrique@wepow.com","first_name":"Enrique","last_name":"Ramírez","time_zone":"Guadalajara","language":"en","notification_settings":{"application_completed":"instant","candidate_messaged_recruiter":"instant","evaluation_completed":true,"comment_created":true,"candidate_direct_messaged_recruiter":true},"current_date":"2016-09-30T15:02:21.485"},"organization":{"id":"57ed817950af16c1c600001b","name":"WePow","subdomain":"dev","omniauth_providers":["facebook","gplus","linkedin"],"recruiters_can_request_phone_numbers":true,"created_at":"2016-09-29T16:02:49.658"}}')});
