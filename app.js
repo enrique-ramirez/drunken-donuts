@@ -37,26 +37,23 @@ app.get('/chat*', function(req, res) {
   res.sendFile(__dirname + '/public/chat.html');
 });
 
-var chats = [];
+// var chats = [];
+var supportUsers = [];
 io.on('connection', function (socket) {
-  io.emit('updateChats', chats);
+  // io.emit('updateChats', chats);
 
   socket.on('message', function(data) {
     data.date = new Date();
     io.emit('message', data);
-
-    // if (socket.request.session.user && socket.request.session.user.role !== 'support') {
-    //   var chat = _.find(chats, function(chat) {
-    //     return chat.clientId === chat.clientId;
-    //   });
-
-    //   if (chat) {
-    //     chat.messages.push(data);
-    //   }
-    // }
   });
 
   socket.on('clientConnected', function(data) {
+    if (socket.request.session.user && socket.request.session.user.role === 'support') {
+      supportUsers.push({
+        clientId: socket.id
+      });
+    }
+
     if (data.user.role === 'user') {
       socket.request.session.user = data;
     }
@@ -66,15 +63,15 @@ io.on('connection', function (socket) {
     data.clientId = socket.id;
     io.emit('clientConnected', data);
 
-    chats.push(data);
+    // chats.push(data);
   });
 
   socket.on('disconnect', function() {
     io.emit('clientDisconnected', socket.id);
 
-    chats = _.filter(function(chat) {
-      return chat.clientId !== socket.id;
-    });
+    // chats = _.filter(function(chat) {
+    //   return chat.clientId !== socket.id;
+    // });
   });
 });
 
