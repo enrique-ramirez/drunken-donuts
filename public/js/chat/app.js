@@ -12,7 +12,10 @@ jQuery(document).ready(function() {
     }
 
     function initData(data) {
-        console.log(data);
+        setTimeout(function() {
+            console.log('BLABLABLA', data);
+        }, 1000);
+
         socket.emit('clientConnected', data);
     }
 });
