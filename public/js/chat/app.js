@@ -5,7 +5,11 @@ jQuery(document).ready(function() {
     });
 
     socket.on('message', function(data) {
-        otherMessage(data.message);
+        if (data.role === 'user') {
+            selfMessage(data.message);
+        } else {
+            otherMessage(data.message);
+        }
     });
 
     // Move to bottom scroll
