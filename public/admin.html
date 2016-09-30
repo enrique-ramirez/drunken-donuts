@@ -43,7 +43,7 @@
           <ul class="list-group">
             <li class="list-group-item" ng-repeat="chat in chats" ng-class="{ active: activeChat === chat }" ng-click="setActiveChat(chat)" ng-show="!chat.offline">
               <span class="badge">{{ chat.newMessages }}</span>
-              {{ chat.user.name }}
+              {{ chat.user.first_name }}
             </li>
             <li class="list-group-item" ng-show="!chats.length">
               0 users connected.

@@ -32,6 +32,7 @@ app.controller('ChatController', ['$scope', '$http', function($scope, $http) {
   };
 
   socket.on('clientConnected', function(data) {
+    console.log(data);
     var chat = _.find($scope.chats, function(chat) {
       return chat.clientId === data.clientId;
     });
