@@ -4,7 +4,10 @@ var server = require('http').Server(app);
 var io = require('socket.io')(server);
 
 app.use(express.static(__dirname + '/public'));
-app.use('/admin', express.static(__dirname + '/admin'));
+
+app.get('/admin*', function(req, res) {
+  res.sendFile(__dirname + '/public/admin.html');
+});
 
 io.on('connection', function (socket) {
   socket.emit('hi', { hello: 'world' });
