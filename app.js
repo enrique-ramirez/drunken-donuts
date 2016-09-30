@@ -9,6 +9,10 @@ app.get('/admin*', function(req, res) {
   res.sendFile(__dirname + '/public/admin.html');
 });
 
+app.get('/chat*', function(req, res) {
+  res.sendFile(__dirname + '/public/chat.html');
+});
+
 io.on('connection', function (socket) {
   socket.on('message', function(data) {
     if (io.sockets.connected[data.clientId]) {
