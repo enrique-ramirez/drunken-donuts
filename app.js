@@ -4,6 +4,7 @@ var server = require('http').Server(app);
 var io = require('socket.io')(server);
 
 app.use(express.static(__dirname + '/public'));
+app.use('/admin', express.static(__dirname + '/admin'));
 
 io.on('connection', function (socket) {
   socket.emit('hi', { hello: 'world' });
