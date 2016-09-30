@@ -15,5 +15,9 @@
   "bugs": {
     "url": "https://github.com/enrique-ramirez/drunken-donuts/issues"
   },
-  "homepage": "https://github.com/enrique-ramirez/drunken-donuts#readme"
+  "homepage": "https://github.com/enrique-ramirez/drunken-donuts#readme",
+  "dependencies": {
+    "express": "^4.14.0",
+    "socketio": "^1.0.0"
+  }
 }
