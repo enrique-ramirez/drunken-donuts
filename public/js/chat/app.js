@@ -11,10 +11,7 @@ jQuery(document).ready(function() {
         window.attachEvent('onmessage', initData);
     }
 
-    function initData(data) {
-        socket.emit('clientConnected', data);
+    function initData(event) {
+        socket.emit('clientConnected', event.data);
     }
-
-
-    socket.on('clientConnected', console.log);
 });
