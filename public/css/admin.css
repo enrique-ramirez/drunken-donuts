@@ -22,6 +22,10 @@ body>.navbar {
     overflow: auto;
 }
 
-.chat-window .list-group-item {
-    border: none;
+.tech-panel .panel-body {
+    overflow: auto;
+}
+
+.user-info-panel .list-group-item {
+    padding: 4px 0;
 }

@@ -10,10 +10,22 @@ app.get('/admin*', function(req, res) {
 });
 
 io.on('connection', function (socket) {
-  socket.emit('hi', { hello: 'world' });
+  socket.on('message', function(data) {
+    if (io.sockets.connected[data.clientId]) {
+      data.date = new Date();
+      io.sockets.connected[data.clientId].emit('message', data);
+    }
+  });
 
-  socket.on('hi', function (data) {
-    console.log(data);
+  socket.on('clientConnected', function(data) {
+    data = data || {};
+
+    data.clientId = socket.id;
+    io.emit('clientConnected', data);
+  });
+
+  socket.on('disconnect', function() {
+    io.emit('clientDisconnected', socket.id);
   });
 });
 

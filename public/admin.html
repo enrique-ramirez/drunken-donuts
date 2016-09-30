@@ -2,10 +2,12 @@
 <html>
   <head>
     <title>Drunken Donuts Admin</title>
-    <link rel="stylesheet" type="text/css" href="https://bootswatch.com/cerulean/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="https://bootswatch.com/lumen/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="/css/admin.css">
     <link rel="stylesheet" type="text/css" href="/css/utils.css">
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.16.2/lodash.min.js"></script>
+    <script type="text/javascript" src="/socket.io/socket.io.js"></script>
   </head>
   <body ng-app="admin">
     <div class="navbar navbar-default navbar-fixed-top">
@@ -34,96 +36,100 @@
         </div>
       </div>
     </div>
-    <div class="container">
+    <div class="container" ng-controller="ChatController">
       <div class="row m-t-lg">
         <div class="col-md-3">
           <ul class="list-group">
-            <li class="list-group-item active">
-              <span class="badge">14</span>
-              Fulano
+            <li class="list-group-item" ng-repeat="chat in chats" ng-class="{ active: activeChat === chat }" ng-click="setActiveChat(chat)" ng-show="!chat.offline">
+              <span class="badge">{{ chat.newMessages }}</span>
+              {{ chat.user.name }}
             </li>
-            <li class="list-group-item">
-              <span class="badge">2</span>
-              Sultano
-            </li>
-            <li class="list-group-item">
-              <span class="badge">1</span>
-              Mangano
+            <li class="list-group-item" ng-show="!chats.length">
+              0 users connected.
             </li>
           </ul>
-          <!-- <div class="panel panel-primary">
-            <div class="panel-heading">Active Chats</div>
+        </div>
+        <div class="col-md-6">
+          <div class="panel panel-default" ng-show="!activeChat">
+            <div class="panel-heading"></div>
             <div class="panel-body">
-              <ul class="list-group">
-                <li class="list-group-item active">
-                  <span class="badge">14</span>
-                  Fulano
+              -
+            </div>
+          </div>
+
+          <div class="panel" ng-show="activeChat" ng-class="{ 'panel-success': !activeChat.offline }">
+            <div class="panel-heading">
+              {{ activeChat.user.name }}
+              <span ng-show="activeChat.offline"> (Offline)</span>
+            </div>
+            <form class="panel-body" ng-submit="sendMessage()">
+              <div class="list-group chat-window">
+                <a href="#" class="list-group-item b-none" ng-repeat="message in activeChat.messages">
+                  <h4 class="list-group-item-heading">
+                    <img src="https://scontent-dft4-2.xx.fbcdn.net/v/t1.0-9/12006106_10152938260366157_3722238005613031423_n.jpg?oh=f80e549c54ab964de48cc79986d23a3e&oe=58A835FB" alt="..." class="img-circle m-r-sm" width="40">
+                    <span>{{ message.from.name }}</span>
+                  </h4>
+                  <p class="list-group-item-text m-t-sm">{{ message.message }}</p>
+                </a>
+              </div>
+              <input type="text" class="form-control" placeholder="Message..." ng-model="message"/>
+              <button type="submit" class="hide"></button>
+            </form>
+          </div>
+        </div>
+
+        <div class="col-md-3">
+          <div class="panel panel-default user-info-panel">
+            <div class="panel-heading">
+              User Info
+            </div>
+            <div class="panel-body">
+              <ul class="list-group m-b-sm">
+                <li class="list-group-item b-none">
+                  <b>Username:</b> <a href="#">@gavalos</a>
                 </li>
-                <li class="list-group-item">
-                  <span class="badge">2</span>
-                  Sultano
-                </li>
-                <li class="list-group-item">
-                  <span class="badge">1</span>
-                  Mangano
+                <li class="list-group-item b-none">
+                  <b>Organization:</b> <a href="#">WePow</a>
                 </li>
               </ul>
             </div>
-          </div> -->
-        </div>
-        <div class="col-md-7">
-          <div class="panel panel-success">
-            <div class="panel-heading">Fulano</div>
-            <div class="panel-body">
-              <div class="list-group chat-window">
-                <a href="#" class="list-group-item" ng-repeat="item in [1,2,3,4,5]">
-                  <h4 class="list-group-item-heading">
-                    <img src="https://scontent-dft4-2.xx.fbcdn.net/v/t1.0-9/12006106_10152938260366157_3722238005613031423_n.jpg?oh=f80e549c54ab964de48cc79986d23a3e&oe=58A835FB" alt="..." class="img-circle m-r-sm" width="40">
-                    <span>Gilberto</span>
-                  </h4>
-                  <p class="list-group-item-text m-t-sm">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
-                </a>
-                <a href="#" class="list-group-item">
-                  <h4 class="list-group-item-heading">
-                    <img src="https://scontent-dft4-2.xx.fbcdn.net/v/t1.0-9/12006106_10152938260366157_3722238005613031423_n.jpg?oh=f80e549c54ab964de48cc79986d23a3e&oe=58A835FB" alt="..." class="img-circle m-r-sm" width="40">
-                    <span>Gilberto</span>
-                  </h4>
-                  <p class="list-group-item-text m-t-sm">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
-                </a>
-              </div>
-              <input type="text" class="form-control" placeholder="Message..." />
-            </div>
           </div>
-        </div>
-        <div class="col-md-2">
-          <div class="panel panel-default">
+          <div class="panel panel-default tech-panel">
             <div class="panel-heading">
               Tech Info
             </div>
             <div class="panel-body">
-              <ul>
+              <ul class="list-unstyled">
                 <li>
-                  Location: Knoxville, TN, United States
+                  <b>Location:</b> Knoxville, TN, United States
                 </li>
                 <li>
-                  From url: https://chickfila.wepowapp.com/iqs/d1f0a039fb004481ba0a131c000a0e1c?registered=true
+                  <b>From url:</b> https://chickfila.wepowapp.com/iqs/d1f0a039fb004481ba0a131c000a0e1c?registered=true
                 </li>
                 <li>
-                  Browser: Chrome (53.0.2785.116)
+                  <b>Browser:</b> Chrome (53.0.2785.116)
                 </li>
                 <li>
-                  Operating Systems: Microsoft Windows 10
+                  <b>Operating Systems:</b> Microsoft Windows 10
                 </li>
                 <li>
-                  Languages: English (en-US), English (en)
+                  <b>Languages:</b> English (en-US), English (en)
                 </li>
                 <li>
-                  Plugins: Flash=23.0.0, Java=none
+                  <b>Plugins:</b> Flash=23.0.0, Java=none
                 </li>
                 <li>
-                  Javascript variables: E
+                  <b>Javascript variables:</b> E
                 </li>
               </ul>
+            </div>
+          </div>
+
+          <div class="panel panel-default">
+            <div class="panel-heading">Tools</div>
+            <div class="panel-body">
+              <button class="btn btn-default btn-block">Send to Zendesk</button>
+              <button class="btn btn-default btn-block">Watch Recording</button>
             </div>
           </div>
         </div>

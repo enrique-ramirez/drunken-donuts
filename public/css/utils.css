@@ -324,3 +324,6 @@
 .m-b-n-xl {
   margin-bottom: -40px;
 }
+.b-none {
+  border: none !important;
+}
