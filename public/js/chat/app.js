@@ -11,11 +11,7 @@ jQuery(document).ready(function() {
         window.attachEvent('onmessage', initData);
     }
 
-    function initData(data) {
-        setTimeout(function() {
-            console.log('BLABLABLA', data);
-        }, 1000);
-
-        socket.emit('clientConnected', data);
+    function initData(event) {
+        socket.emit('clientConnected', event.data);
     }
 });
