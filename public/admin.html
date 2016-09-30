@@ -90,7 +90,7 @@
             <div class="panel-heading">
               User Info
             </div>
-            <div class="panel-body">
+            <div class="panel-body" ng-show="activeChat">
               <ul class="list-group m-b-sm">
                 <li class="list-group-item b-none">
                   <b>Username:</b> <a href="#">@gavalos</a>
@@ -105,7 +105,7 @@
             <div class="panel-heading">
               Tech Info
             </div>
-            <div class="panel-body">
+            <div class="panel-body" ng-show="activeChat">
               <ul class="list-unstyled">
                 <li>
                   <b>Location:</b> Knoxville, TN, United States
@@ -134,9 +134,9 @@
 
           <div class="panel panel-default m-t-sm">
             <div class="panel-heading">Tools</div>
-            <div class="panel-body">
+            <div class="panel-body" ng-show="activeChat">
               <button class="btn btn-default btn-block">Send to Zendesk</button>
-              <button class="btn btn-default btn-block">Watch Recording</button>
+              <a href="http://recordit.co/9nmqdtGOQL" target="_blank" class="btn btn-default btn-block">Watch Recording</a>
             </div>
           </div>
         </div>
