@@ -15,4 +15,6 @@ jQuery(document).ready(function() {
         socket.emit('clientConnected', data);
     }
 
+
+    socket.on('clientConnected', console.log);
 });
