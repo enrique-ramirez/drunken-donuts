@@ -60,7 +60,7 @@
 
           <div class="panel" ng-show="activeChat" ng-class="{ 'panel-success': !activeChat.offline }">
             <div class="panel-heading">
-              {{ activeChat.user.name }}
+              {{ activeChat.user.first_name }}
               <span ng-show="activeChat.offline"> (Offline)</span>
             </div>
             <form class="panel-body" ng-submit="sendMessage()">
@@ -74,7 +74,7 @@
                     </div>
                   </div>
                   <div class="col-md-2 col-xs-2 avatar">
-                    <img src="http://www.bitrebels.com/wp-content/uploads/2011/02/Original-Facebook-Geek-Profile-Avatar-1.jpg" class="img-responsive img-circle">
+                    <img src="/img/avatar-default.jpg" class="img-responsive img-thumbnail">
                   </div>
                 </div>
               </div>
@@ -101,7 +101,7 @@
               </ul>
             </div>
           </div>
-          <div class="panel panel-default tech-panel">
+          <div class="panel panel-default tech-panel m-t-sm">
             <div class="panel-heading">
               Tech Info
             </div>
@@ -132,7 +132,7 @@
             </div>
           </div>
 
-          <div class="panel panel-default">
+          <div class="panel panel-default m-t-sm">
             <div class="panel-heading">Tools</div>
             <div class="panel-body">
               <button class="btn btn-default btn-block">Send to Zendesk</button>

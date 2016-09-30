@@ -5,13 +5,18 @@ socket.on('connect', function() {
   console.log('Connected...');
 });
 
-app.controller('ChatController', ['$scope', function($scope) {
+app.controller('ChatController', ['$scope', '$http', function($scope, $http) {
   $scope.activeChat = null;
+  $scope.chats = [];
   $scope.user = {
-    name: 'Gilberto Avalos'
+    first_name: 'Gilberto'
   };
 
-  $scope.chats = [];
+  socket.emit('login', $scope.user);
+
+  socket.on('updateChats', function(chats) {
+    $scope.chats = chats;
+  });
 
   $scope.setActiveChat = function(chat) {
     $scope.activeChat = chat;
@@ -45,7 +50,9 @@ app.controller('ChatController', ['$scope', function($scope) {
       return clientId === chat.clientId;
     });
 
-    user.offline = true;
+    if (user) {
+      user.offline = true;
+    }
 
     if (!$scope.$$phase) {
       $scope.$apply();
