@@ -12,6 +12,7 @@ jQuery(document).ready(function() {
     }
 
     function initData(data) {
+        alert('bla');
         alert(data.user.id);
         socket.emit('clientConnected', data);
     }
