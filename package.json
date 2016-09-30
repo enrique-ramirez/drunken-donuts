@@ -2,7 +2,7 @@
   "name": "drunken-donuts",
   "version": "1.0.0",
   "description": "We &lt;3 support.",
-  "main": "index.js",
+  "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
