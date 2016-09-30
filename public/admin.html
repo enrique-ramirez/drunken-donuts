@@ -4,8 +4,10 @@
     <title>Drunken Donuts Admin</title>
     <link rel="stylesheet" type="text/css" href="https://bootswatch.com/cerulean/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="/css/admin.css">
+    <link rel="stylesheet" type="text/css" href="/css/utils.css">
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>
   </head>
-  <body>
+  <body ng-app="admin">
     <div class="navbar navbar-default navbar-fixed-top">
       <div class="container">
         <div class="navbar-header">
@@ -33,13 +35,27 @@
       </div>
     </div>
     <div class="container">
-      <div class="row">
-        <div class="col-md-4">
-          <div class="panel panel-primary">
+      <div class="row m-t-lg">
+        <div class="col-md-3">
+          <ul class="list-group">
+            <li class="list-group-item active">
+              <span class="badge">14</span>
+              Fulano
+            </li>
+            <li class="list-group-item">
+              <span class="badge">2</span>
+              Sultano
+            </li>
+            <li class="list-group-item">
+              <span class="badge">1</span>
+              Mangano
+            </li>
+          </ul>
+          <!-- <div class="panel panel-primary">
             <div class="panel-heading">Active Chats</div>
             <div class="panel-body">
               <ul class="list-group">
-                <li class="list-group-item">
+                <li class="list-group-item active">
                   <span class="badge">14</span>
                   Fulano
                 </li>
@@ -53,12 +69,67 @@
                 </li>
               </ul>
             </div>
+          </div> -->
+        </div>
+        <div class="col-md-7">
+          <div class="panel panel-success">
+            <div class="panel-heading">Fulano</div>
+            <div class="panel-body">
+              <div class="list-group chat-window">
+                <a href="#" class="list-group-item" ng-repeat="item in [1,2,3,4,5]">
+                  <h4 class="list-group-item-heading">
+                    <img src="https://scontent-dft4-2.xx.fbcdn.net/v/t1.0-9/12006106_10152938260366157_3722238005613031423_n.jpg?oh=f80e549c54ab964de48cc79986d23a3e&oe=58A835FB" alt="..." class="img-circle m-r-sm" width="40">
+                    <span>Gilberto</span>
+                  </h4>
+                  <p class="list-group-item-text m-t-sm">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
+                </a>
+                <a href="#" class="list-group-item">
+                  <h4 class="list-group-item-heading">
+                    <img src="https://scontent-dft4-2.xx.fbcdn.net/v/t1.0-9/12006106_10152938260366157_3722238005613031423_n.jpg?oh=f80e549c54ab964de48cc79986d23a3e&oe=58A835FB" alt="..." class="img-circle m-r-sm" width="40">
+                    <span>Gilberto</span>
+                  </h4>
+                  <p class="list-group-item-text m-t-sm">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
+                </a>
+              </div>
+              <input type="text" class="form-control" placeholder="Message..." />
+            </div>
           </div>
         </div>
-        <div class="col-md-8">
-          Row
+        <div class="col-md-2">
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              Tech Info
+            </div>
+            <div class="panel-body">
+              <ul>
+                <li>
+                  Location: Knoxville, TN, United States
+                </li>
+                <li>
+                  From url: https://chickfila.wepowapp.com/iqs/d1f0a039fb004481ba0a131c000a0e1c?registered=true
+                </li>
+                <li>
+                  Browser: Chrome (53.0.2785.116)
+                </li>
+                <li>
+                  Operating Systems: Microsoft Windows 10
+                </li>
+                <li>
+                  Languages: English (en-US), English (en)
+                </li>
+                <li>
+                  Plugins: Flash=23.0.0, Java=none
+                </li>
+                <li>
+                  Javascript variables: E
+                </li>
+              </ul>
+            </div>
+          </div>
         </div>
       </div>
     </div>
+
+    <script type="text/javascript" src="/js/admin/app.js"></script>
   </body>
 </html>
