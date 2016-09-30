@@ -5,6 +5,7 @@
     <link rel="stylesheet" type="text/css" href="https://bootswatch.com/lumen/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="/css/admin.css">
     <link rel="stylesheet" type="text/css" href="/css/utils.css">
+    <link rel="stylesheet" type="text/css" href="/css/chat.css">
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.16.2/lodash.min.js"></script>
     <script type="text/javascript" src="/socket.io/socket.io.js"></script>
@@ -63,15 +64,21 @@
               <span ng-show="activeChat.offline"> (Offline)</span>
             </div>
             <form class="panel-body" ng-submit="sendMessage()">
-              <div class="list-group chat-window">
-                <a href="#" class="list-group-item b-none" ng-repeat="message in activeChat.messages">
-                  <h4 class="list-group-item-heading">
-                    <img src="https://scontent-dft4-2.xx.fbcdn.net/v/t1.0-9/12006106_10152938260366157_3722238005613031423_n.jpg?oh=f80e549c54ab964de48cc79986d23a3e&oe=58A835FB" alt="..." class="img-circle m-r-sm" width="40">
-                    <span>{{ message.from.name }}</span>
-                  </h4>
-                  <p class="list-group-item-text m-t-sm">{{ message.message }}</p>
-                </a>
+              <div class="chat-container">
+                <div class="row msg_container" ng-repeat="message in activeChat.messages" ng-class="{ base_sent: message.fromMe, base_receive: !message.fromMe }">
+                  <div class="col-md-10 col-xs-10">
+                    <div class="messages" ng-class="{ msg_sent: message.fromMe, msg_receive: !message.fromMe }">
+                      <b>{{ message.from.name }}</b>
+                      <p>{{ message.message }}</p>
+                      <time datetime="2009-11-13T20:00">{{ message.date }}</time>
+                    </div>
+                  </div>
+                  <div class="col-md-2 col-xs-2 avatar">
+                    <img src="http://www.bitrebels.com/wp-content/uploads/2011/02/Original-Facebook-Geek-Profile-Avatar-1.jpg" class="img-responsive img-circle">
+                  </div>
+                </div>
               </div>
+
               <input type="text" class="form-control" placeholder="Message..." ng-model="message"/>
               <button type="submit" class="hide"></button>
             </form>

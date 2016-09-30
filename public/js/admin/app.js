@@ -59,6 +59,11 @@ app.controller('ChatController', ['$scope', function($scope) {
 
     if (chat) {
       chat.messages = chat.messages || [];
+
+      if (data.clientId === socket.id) {
+        data.fromMe = true;
+      }
+
       chat.messages.push(data);
     }
 
@@ -66,7 +71,7 @@ app.controller('ChatController', ['$scope', function($scope) {
       $scope.$apply();
     }
 
-    var chatWindow = document.querySelector('.chat-window');
+    var chatWindow = document.querySelector('.chat-container');
     chatWindow.scrollTop = chatWindow.scrollHeight;
   });
 }]);
